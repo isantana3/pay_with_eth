@@ -49,10 +49,19 @@ You can use those snippets for start
 const onlineStore = await OnlineStore.deployed();
 
 // Adiciona uma conta autorizada (substitua por um endereço de conta válido)
-await onlineStore.setAuthorizedAccount("0x44ed92E355b50EA14e86c2Ae00e9D61786bfc916", true);
+await onlineStore.setAuthorizedAccount("0x09886F7f8Db3A25F3B03470f73c5011633498400", true);
 
 // Armazena uma venda (substitua pelos valores desejados)
-await onlineStore.storeSale(1, 2, 100, "0xCDd4F3d7ddbFf8DF1291282394562c4e807959E3");
+const productId = 1;
+const quantity = 2;
+const price = web3.utils.toWei("0.1", "ether");
+// price = 100000000000000000
+const authAddress = "0x71d02E51D336aFe6C7C485Ac50A2c67DDE21a26c";
+const buyerAddress = "0x09886F7f8Db3A25F3B03470f73c5011633498400";
+await onlineStore.storeSale(10, 2, 1000, "0x09886F7f8Db3A25F3B03470f73c5011633498400", {
+    from: "0x71d02E51D336aFe6C7C485Ac50A2c67DDE21a26c",
+    value: 2000,
+});
 
 // Recupera todas as vendas
 const sales = await onlineStore.getTotalSales();

@@ -14,7 +14,7 @@ contract OnlineStore {
     Sale[] private sales;
 
     // Contract owner address
-    address public owner;
+    address payable public owner;
 
     // Mapping to control authorized accounts
     mapping(address => bool) public authorizedAccounts;
@@ -29,7 +29,7 @@ contract OnlineStore {
 
     // Constructor to set the contract owner
     constructor() {
-        owner = msg.sender;
+        owner = payable(msg.sender);
     }
 
     // Modifier to check if the account is authorized
@@ -52,8 +52,13 @@ contract OnlineStore {
         uint _productId,
         uint _quantity,
         uint _price,
-        address _buyerAddress
-    ) public onlyAuthorized {
+        address payable _buyerAddress
+    ) public payable onlyAuthorized {
+        require(
+            msg.value == _price * _quantity,
+            "Insufficient Ether sent for the purchase"
+        );
+
         sales.push(
             Sale({
                 productId: _productId,
@@ -62,6 +67,10 @@ contract OnlineStore {
                 buyerAddress: _buyerAddress
             })
         );
+
+        // Transfer the Ether to the owner
+        owner.transfer(msg.value);
+
         emit NewSale(_productId, _quantity, _price, _buyerAddress);
     }
 
