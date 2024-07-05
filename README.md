@@ -1,5 +1,7 @@
 # pay_with_eth
 
+por: Adriel Fabrício e Iago Gomes
+
 ## Descrição
 
 OnlineStore é uma aplicação descentralizada (DApp) de loja virtual onde os usuários podem comprar produtos utilizando Ether (ETH). Esta aplicação é construída em Solidity e usa Truffle para desenvolvimento e implantação de contratos inteligentes.
